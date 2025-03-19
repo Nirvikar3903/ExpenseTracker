@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { Children, createContext, useState } from 'react'
 
-const AppProvider = () => {
+export const AppContext = createContext()
+
+// const AppProvider = (props) => {
+const AppProvider = ({children}) => {
+
+    const [budget , setBudget] = useState(0);
+    const [expense,setExpense] = useState(null);
+    const [transactions,setTransactions] = useState([]);
+    const [selectedTransaction,setSelectedTransaction] = useState(null);
+
+    
   return (
-    <div>AppProvider</div>
+    <AppContext.Provider
+        value={{
+            budget,
+            expense,
+            transactions,
+            selectedTransaction
+        }}
+    >
+        {children}
+    </AppContext.Provider>
+
   )
 }
 

@@ -1,15 +1,19 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './component/Header'
+import ExpenseMainApp from './component/ExpenseMainApp'
+import AppProvider from './context/AppProvider'
 
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Header/>}  />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Header/>
+      <AppProvider>
+        <ExpenseMainApp/>
+      </AppProvider>
+
+
+    </>
   )
 }
 
