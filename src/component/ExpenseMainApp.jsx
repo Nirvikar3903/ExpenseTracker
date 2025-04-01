@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BudgetCards from "./utilisComponents/BudgetCards";
 import budgetImage from "../assets/budget.svg";
 import expenseImage from "../assets/expense.svg";
@@ -19,6 +19,9 @@ import CategoryCards from "../component/utilisComponents/CategoryCards";
 import ButtonCards from "../component/utilisComponents/ButtonCards";
 import AddBudget from "./AddBudget";
 import AddExpence from "./AddExpence";
+import ExpenseTable from "./ExpenseTable";
+
+// import EditExpense from './EditExpense'
 
 const ExpenseMainApp = () => {
   const {
@@ -26,30 +29,80 @@ const ExpenseMainApp = () => {
     expense,
     transactions,
     setTransaction,
-    handleBudgetPopupClick,
-    handleExpensePopupClick,
     activeButton,
     setActiveButton,
-
-    openExpensePopup,
   } = useContext(AppContext);
+
+
+  const [openBudgetPopup, setOpenBudgetPopup] = useState(false);
+  const [openExpensePopup, setOpenExpensePopup] = useState(false);
+
 
   const [searchInput, setSearchInput] = useState("");
   const [filteredTransaction, setFilteredTransaction] = useState(transactions);
 
-  const handleAllExpense = (buttonname, index) => {
-    setActiveButton(index);
-    setFilteredTransaction(transactions);
+  //handle budget popup
+  const handleBudgetPopupClick = () => {
+    console.log("Add Budget button clicked!");
+    setOpenBudgetPopup(true);
   };
 
-  const handleCategoryChange = (buttonname, index) => {
-    setActiveButton(index);
-    const expensesData = [...transactions];
-    const sortedExpenses = expensesData.filter((item) => {
-      return item.category === buttonname;
-    });
-    setFilteredTransactions(sortedExpenses);
+  const closeBudgetPopup = () => {
+    setOpenBudgetPopup(false);
   };
+
+  //handle Expense popup
+  const handleExpensePopupClick = () => {
+    setOpenExpensePopup(true);
+  };
+  const closeAddExpensePopup = () => {
+    console.log("Clicked close expense popup");
+    setOpenExpensePopup(false);
+  };
+
+
+  // All expense
+  const handleAllExpense = (category, index) => {
+    setActiveButton(0);
+    setFilteredTransaction(transactions);
+  };
+  //change category
+  const handleCategoryChange = (category , index)=>{
+    setActiveButton(index);
+    const filteredData = transactions.filter((item)=>item.category === category)
+    applySearchFilter(filteredData)// Apply search on filtered category data
+
+  }
+  const applySearchFilter = (data)=>{
+     if(!searchInput.trim()){
+      setFilteredTransaction(data) //show all
+      return;
+     }
+
+     const filteredData = data.filter((transactions)=>
+      transactions.description.toLowerCase().includes(searchInput.toLowerCase().trim()) 
+    );
+    setFilteredTransaction(filteredData)
+  }
+
+  useEffect(()=>{
+    applySearchFilter(transactions)
+  },[transactions]);
+
+  useEffect(()=>{
+    applySearchFilter(filteredTransaction)
+  },[searchInput]);
+
+
+
+  // const handleCategoryChange = (category, index) => {
+  //   setActiveButton(index);
+  //   const expensesData = [...transactions];
+  //   const sortedExpenses = expensesData.filter((item) => {
+  //     return item.category === category;
+  //   });
+  //   setFilteredTransactions(sortedExpenses);
+  // };
 
   return (
     <>
@@ -85,12 +138,12 @@ const ExpenseMainApp = () => {
               placeholder="Search..."
               id="search"
               value={searchInput}
-              onChange={() => setSearchInput()}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
           </div>
 
           <CategoryCards
-            buttonname={"All Expense"}
+            category={"All Expense"}
             icon={
               <FontAwesomeIcon
                 icon={faFileInvoiceDollar}
@@ -98,30 +151,35 @@ const ExpenseMainApp = () => {
               />
             }
             index={0}
+            activeButton={activeButton}
             handleCategoryChange={handleAllExpense}
           />
           <CategoryCards
-            buttonname={"Food and drinks"}
+            category={"Food and drinks"}
             icon={<CiPizza className="text-2xl" />}
             handleCategoryChange={handleCategoryChange}
             index={1}
+            activeButton={activeButton}
           />
           <CategoryCards
-            buttonname={"Groceries"}
+            category={"Groceries"}
             icon={<HiOutlineShoppingBag className="text-2xl" />}
             index={2}
+            activeButton={activeButton}
             handleCategoryChange={handleCategoryChange}
           />
           <CategoryCards
-            buttonname={"Travel"}
+            category={"Travel"}
             icon={<BsSuitcase className="text-2xl" />}
             index={3}
+            activeButton={activeButton}
             handleCategoryChange={handleCategoryChange}
           />
           <CategoryCards
-            buttonname={"Health"}
+            category={"Health"}
             icon={<MdHealthAndSafety className="text-2xl" />}
             index={4}
+            activeButton={activeButton}
             handleCategoryChange={handleCategoryChange}
           />
           <ButtonCards
@@ -135,9 +193,11 @@ const ExpenseMainApp = () => {
             handleModalChange={handleExpensePopupClick}
           />
         </div>
-        <AddBudget />
-        <AddExpence/>
-        {/* render AddExpence only when popup state is true */}
+        <AddBudget handleBudgetPopupClick={handleBudgetPopupClick} openBudgetPopup={openBudgetPopup} closeBudgetPopup={closeBudgetPopup}/>
+        <AddExpence handleExpensePopupClick={handleExpensePopupClick} openExpensePopup={openExpensePopup} closeAddExpensePopup={closeAddExpensePopup}  />
+        {/* <EditExpense/> */}
+        
+        <ExpenseTable filteredTransaction={filteredTransaction} setFilteredTransaction={setFilteredTransaction} />
       </div>
     </>
   );

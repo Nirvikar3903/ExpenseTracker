@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppProvider";
 
-const AddBudget = () => {
-  const { budget } = useContext(AppContext);
+const AddBudget = ({openBudgetPopup, handleBudgetPopupClick ,closeBudgetPopup}) => {
+  const { budget  , setBudget} = useContext(AppContext);
 
-  const [openBudgetPopup, setOpenBudgetPopup] = useState(false);
   const [inputBudget, setInputBudget] = useState();
   const [errors, setErrors] = useState({});
 
@@ -20,14 +19,9 @@ const AddBudget = () => {
     return Object.keys(errors).length === 0; // Return true if no errors
   };
   
-  const handleBudgetPopupClick = () => {
-    console.log("Add Budget button clicked!");
-    setOpenBudgetPopup(true);
-  };
 
-  const closeBudgetPopup = () => {
-    setOpenBudgetPopup(false);
-  };
+
+
 
   const handleChangeBudget = (newBudget) => {
     setBudget(newBudget);

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../context/AppProvider'
 
-const EditExpense = () => {
+const EditExpense = ({}) => {
+  const{transactions , setTransactions,selectedTransaction , setSelectedTransaction}=useContext(AppContext)
   return (
-    <div>EditExpense</div>
+    <>
+      {}
+    </>
   )
 }
 

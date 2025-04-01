@@ -4,26 +4,14 @@ export const AppContext = createContext()
 // const AppProvider = (props) => {
 const AppProvider = ({children}) => {
 
-
-
     const [budget , setBudget] = useState(0);
     const [expense,setExpense] = useState(null);
     const [transactions,setTransactions] = useState([]);
     const [selectedTransaction,setSelectedTransaction] = useState(null);
 
     //popups states
-   
-    const [openEditExpensePopup , setOpenEditExpensePopup] =  useState(false);
-
     const [activeButton, setActiveButton] = useState(0);
 
-    //toggle add budget popup
-    
-
-
-    
-
-    
     useEffect(() => {
       const savedBudget = localStorage.getItem('budget');
       if (savedBudget) {
@@ -73,20 +61,17 @@ const AppProvider = ({children}) => {
     //   console.log("Updated transactions:", transactions);
     // }, [transactions]); // This will log every time transactions state changes
     
+    
 
-
-    useEffect(()=>{
-      if(Array.isArray(transactions)){
-        const calculateExpense = ()=>{
-          const totalExpense = transactions.reduce((acc , transactions)=>{
-            return acc + (transactions.amount||0)
-          } , 0)
-          setExpense(totalExpense)
-        }
-        calculateExpense() ;
-      };
-    } ,[transactions])
-
+   useEffect(()=>{
+    const calculateExpense=()=>{
+      const totalExpense = transactions.reduce((acc , transaction)=>{
+        return acc + parseInt(transaction.amount)
+      },0);
+      setExpense(totalExpense);
+    };
+    calculateExpense();
+   },[transactions]);
     //edit and delete popups 
 
 
@@ -101,7 +86,8 @@ const AppProvider = ({children}) => {
             setTransactions,
             selectedTransaction ,
             setSelectedTransaction ,
-            // openDeletePopup,
+            activeButton , 
+            setActiveButton
 
           //  handleExpensePopupClick,//have to remove this
           //  handleExpensedataChange , //addinh expense

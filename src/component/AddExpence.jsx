@@ -2,8 +2,7 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppProvider";
 import { v4 as uuidv4, validate } from "uuid";
 
-const AddExpence = () => {
-  const [openExpensePopup, setOpenExpensePopup] = useState(false);
+  const AddExpence = ({handleExpensePopupClick ,openExpensePopup, closeAddExpensePopup}) => {
 
   const [newExpenseTitle, setNewExpenseTitle] = useState("");
   const [date, setDate] = useState("");
@@ -11,9 +10,9 @@ const AddExpence = () => {
   const [newExpenseAmount, setNewExpenseAmount] = useState("");
   const [initialDate, setInitialDate] = useState("");
   const [errors, setErrors] = useState({});
-  const { budget } = useContext(AppContext);
+  const { budget , transactions , setTransactions } = useContext(AppContext);
 
-  const handleExpensedataChange = (newExpense) =>{
+  const handleExpenseDataChange = (newExpense) =>{
         const newExpenseData = [...transactions  , newExpense];
         setTransactions(newExpenseData);
         localStorage.setItem("transactions" , JSON.stringify(newExpenseData))
@@ -46,29 +45,7 @@ const AddExpence = () => {
     return Object.keys(errors).length === 0;
   };
 
-  //addExpense
-  const handleExpensePopupClick = () => {
-    setOpenExpensePopup(true);
-  };
-  const closeAddExpensePopup = () => {
-    console.log("Clicked close expense popup");
-    setOpenExpensePopup(false);
-  };
-
-  // const handleSubmit = (e) =>{
-  //   e.preventDefault();
-  //   if(validate()){
-  //     handleExpenseDataChange({
-  //       id:uuidv4(),
-  //       description: newExpenseTitle ,
-  //       category:  category ,
-  //       date : date,
-  //       amount : newExpenseAmount
-  //     });
-  //     closeAddExpensePopoup()
-
-  //   }
-  // }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -84,7 +61,7 @@ const AddExpence = () => {
       });
       closeAddExpensePopup(); 
     } else {
-      console.log("Validation failed"); 
+      console.log("Validation failed"); // Debug statement
     }
   };
 
