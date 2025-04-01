@@ -33,34 +33,6 @@ const AppProvider = ({children}) => {
         }
       }
     }, []);
-
-    //getting from localstorage
-
-    // useEffect(() => {
-    //   const savedBudget = localStorage.getItem('budget');
-    //   if (savedBudget !== null && savedBudget !== '') {
-    //     try {
-    //       setBudget(JSON.parse(savedBudget));
-    //     } catch (error) {
-    //       console.error('Error parsing budget from localStorage', error);
-    //     }
-    //   }
-    // }, []);
-  
-    // useEffect(() => {
-    //   const savedTransactions = localStorage.getItem('transactions');
-    //   if (savedTransactions !== null && savedTransactions !== '') {
-    //     try {
-    //       setTransactions(JSON.parse(savedTransactions));
-    //     } catch (error) {
-    //       console.error('Error parsing transactions from localStorage', error);
-    //     }
-    //   }
-    // }, []);
-    // useEffect(() => {
-    //   console.log("Updated transactions:", transactions);
-    // }, [transactions]); // This will log every time transactions state changes
-    
     
 
    useEffect(()=>{

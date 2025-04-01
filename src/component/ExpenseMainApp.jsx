@@ -20,6 +20,9 @@ import ButtonCards from "../component/utilisComponents/ButtonCards";
 import AddBudget from "./AddBudget";
 import AddExpence from "./AddExpence";
 import ExpenseTable from "./ExpenseTable";
+import Footer from "./Footer";
+import PieChart from "./PieChart";
+import LineChart from "./LineChart";
 
 // import EditExpense from './EditExpense'
 
@@ -95,6 +98,7 @@ const ExpenseMainApp = () => {
 
 
 
+
   // const handleCategoryChange = (category, index) => {
   //   setActiveButton(index);
   //   const expensesData = [...transactions];
@@ -155,7 +159,7 @@ const ExpenseMainApp = () => {
             handleCategoryChange={handleAllExpense}
           />
           <CategoryCards
-            category={"Food and drinks"}
+            category={"Food and Drinks"}
             icon={<CiPizza className="text-2xl" />}
             handleCategoryChange={handleCategoryChange}
             index={1}
@@ -195,9 +199,11 @@ const ExpenseMainApp = () => {
         </div>
         <AddBudget handleBudgetPopupClick={handleBudgetPopupClick} openBudgetPopup={openBudgetPopup} closeBudgetPopup={closeBudgetPopup}/>
         <AddExpence handleExpensePopupClick={handleExpensePopupClick} openExpensePopup={openExpensePopup} closeAddExpensePopup={closeAddExpensePopup}  />
-        {/* <EditExpense/> */}
         
+        <PieChart filteredTransaction={filteredTransaction} setFilteredTransaction={setFilteredTransaction} />
+        <LineChart  />
         <ExpenseTable filteredTransaction={filteredTransaction} setFilteredTransaction={setFilteredTransaction} />
+        <Footer/>
       </div>
     </>
   );

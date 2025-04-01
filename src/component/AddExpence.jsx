@@ -2,22 +2,27 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppProvider";
 import { v4 as uuidv4, validate } from "uuid";
 
-  const AddExpence = ({handleExpensePopupClick ,openExpensePopup, closeAddExpensePopup}) => {
-
+const AddExpence = ({
+  handleExpensePopupClick,
+  openExpensePopup,
+  closeAddExpensePopup,
+}) => {
   const [newExpenseTitle, setNewExpenseTitle] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [newExpenseAmount, setNewExpenseAmount] = useState("");
   const [initialDate, setInitialDate] = useState("");
   const [errors, setErrors] = useState({});
-  const { budget , transactions , setTransactions } = useContext(AppContext);
+  const { budget, transactions, setTransactions ,activeButton , 
+    setActiveButton } = useContext(AppContext);
 
-  const handleExpenseDataChange = (newExpense) =>{
-        const newExpenseData = [...transactions  , newExpense];
-        setTransactions(newExpenseData);
-        localStorage.setItem("transactions" , JSON.stringify(newExpenseData))
-      }
-  
+  const handleExpenseDataChange = (newExpense) => {
+    const newExpenseData = [...transactions, newExpense];
+    setTransactions(newExpenseData);
+    setActiveButton(0);
+    localStorage.setItem("transactions", JSON.stringify(newExpenseData));
+  };
+
   const getTodayDate = () => {
     const a = new Date();
     const date = a.getDate() < 9 ? "0" + a.getDate() : a.getDate();
@@ -45,13 +50,11 @@ import { v4 as uuidv4, validate } from "uuid";
     return Object.keys(errors).length === 0;
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submit clicked");
+    // console.log("Submit clicked");
     if (validate()) {
-      console.log("Validation passed");
+      // console.log("Validation passed");
       handleExpenseDataChange({
         id: uuidv4(),
         description: newExpenseTitle,
@@ -59,13 +62,18 @@ import { v4 as uuidv4, validate } from "uuid";
         date: date,
         amount: newExpenseAmount,
       });
-      closeAddExpensePopup(); 
+
+      //clearing inputs
+      setNewExpenseTitle("");
+      setDate("");
+      setCategory("");
+      setNewExpenseAmount("");
+      closeAddExpensePopup();
     } else {
       console.log("Validation failed"); // Debug statement
-    }
+    }  
   };
 
-  
   return (
     <>
       {openExpensePopup && (

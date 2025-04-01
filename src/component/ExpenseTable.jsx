@@ -19,7 +19,8 @@ const ExpenseTable = ({filteredTransaction , setFilteredTransaction}) => {
   },[transactions]);
 
   // edit handelling 
-  const handleEditPopupClick  = () =>{
+  const handleEditPopupClick  = (transaction) =>{
+    setSelectedTransaction(transaction);// set previous values
     setOpenEditExpensePopup(true)
   };
   const closeEditPopup = ()=>{
@@ -106,7 +107,7 @@ const ExpenseTable = ({filteredTransaction , setFilteredTransaction}) => {
         </div>
       </>
      ):(
-      <h2 className="Alert">No Expenses Added !!</h2>
+      <h2 className="Alert flex justify-center text-center text-red-500 text-2xl font-bold m-25 ">No Expenses Added !!</h2>
     )} 
 
     <DeleteExpense openDeletePopup={openDeletePopup} closeDeletePopup={closeDeletePopup} />

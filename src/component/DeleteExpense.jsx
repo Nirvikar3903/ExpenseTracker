@@ -9,20 +9,17 @@ const DeleteExpense = ({ openDeletePopup, closeDeletePopup }) => {
     selectedTransaction,
     setSelectedTransaction,
   } = useContext(AppContext);
-  // const [openDeletePopup, setOpenDeletePopup] = useState(false);
 
-   const handleConfirmDelete = () =>{
-    const deletedTransaction = transactions.filter((expense)=> expense.id !== selectedTransaction.id)
-    setTransactions(deletedTransaction) ;
+
+   const handleConfirmDelete = ()=>{
+    const deletedTransaction = transactions.filter((expense)=>expense.id !== selectedTransaction.id)
+    setTransactions(deletedTransaction);
+
     localStorage.setItem("transactions" , JSON.stringify(deletedTransaction));
-    setOpenDeletePopup(false);
+    closeDeletePopup();
+
    }
 
-  // const handleConfirmDelete = () => {
-  //   const deletedTransaction = transactions.filer(
-  //     (expense) => expense.id !== selectedTransaction.id
-  //   );
-  // };
 
   return (
     <>
