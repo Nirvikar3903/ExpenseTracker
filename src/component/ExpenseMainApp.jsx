@@ -21,8 +21,6 @@ import AddBudget from "./AddBudget";
 import AddExpence from "./AddExpence";
 import ExpenseTable from "./ExpenseTable";
 import Footer from "./Footer";
-import PieChart from "./PieChart";
-import LineChart from "./LineChart";
 
 // import EditExpense from './EditExpense'
 
