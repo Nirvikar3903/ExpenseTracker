@@ -21,25 +21,26 @@ const PieChart = ({filteredTransaction , setFilteredTransaction}) => {
     const foodCategory = filteredTransaction
       .filter((transaction) => transaction.category === "Food and Drinks")
       .reduce((acc, item) => {  
-        return acc + item.amount;
+        return parseInt(acc) + parseInt(item.amount);
       }, 0);
 
     const groceriesCategory = filteredTransaction
       .filter((transaction) => transaction.category === "Groceries")
       .reduce((acc, item) => {
-        return acc + item.amount;
+        return parseInt(acc) + parseInt(item.amount);
       }, 0);
 
     const travelCategory = filteredTransaction
       .filter((transaction) => transaction.category === "Travel")
       .reduce((acc, item) => {
-        return acc + item.amount;
+        return parseInt(acc) + parseInt(item.amount);
+
       }, 0);
 
     const healthCategory = filteredTransaction
       .filter((transaction) => transaction.category === "Health")
       .reduce((acc, item) => {
-        return acc + item.amount;
+        return parseInt(acc) + parseInt(item.amount);
       }, 0);
 
     setFoodTotalAmount(foodCategory);
@@ -60,7 +61,7 @@ const PieChart = ({filteredTransaction , setFilteredTransaction}) => {
 
   const option = {
     title: {
-      text: "Expenses Chart",
+      text: "Expenses by Category",
       left: "center",
     },
     tooltip: {
@@ -72,31 +73,7 @@ const PieChart = ({filteredTransaction , setFilteredTransaction}) => {
       left: "left",
       data: data1.map((item) => item.label),
     },
-    // series: [
-    //   {
-    //     name: "Expense",
-    //     type: "pie",
-    //     radius: "60%",
-    //     center: ["50%", "50%"],
-    //     itemStyle: {
-    //       borderRadius: 10,
-    //       borderColor: '#fff',
-    //       borderWidth: 2
-    //     },
-    //     data: data1.map((item) => ({
-    //       value: item.value,
-    //       name: item.label,
-    //       itemStyle: { color: item.color },
-    //     })),
-    //     emphasis: {
-    //       itemStyle: {
-    //         shadowBlur: 10,
-    //         shadowOffsetX: 0,
-    //         shadowColor: "rgba(0, 0, 0, 0.5)",
-    //       },
-    //     },
-    //   },
-    // ],
+    
     series: [
       {
         name: "Expense",
@@ -134,6 +111,7 @@ const PieChart = ({filteredTransaction , setFilteredTransaction}) => {
         style={{ width: "100%", height: "100%" }}
         opts={{ renderer: "canvas" }} // Optional: to use canvas for rendering (better performance in many cases)
       />
+      
     </div>
   );
 }

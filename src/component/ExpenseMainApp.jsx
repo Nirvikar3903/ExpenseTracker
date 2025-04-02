@@ -31,7 +31,6 @@ const ExpenseMainApp = () => {
     budget,
     expense,
     transactions,
-    setTransaction,
     activeButton,
     setActiveButton,
   } = useContext(AppContext);
@@ -41,7 +40,7 @@ const ExpenseMainApp = () => {
   const [openExpensePopup, setOpenExpensePopup] = useState(false);
 
 
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput,   setSearchInput] = useState("");
   const [filteredTransaction, setFilteredTransaction] = useState(transactions);
 
   //handle budget popup
@@ -77,6 +76,7 @@ const ExpenseMainApp = () => {
 
   }
   const applySearchFilter = (data)=>{
+    console.log({data})
      if(!searchInput.trim()){
       setFilteredTransaction(data) //show all
       return;
@@ -92,21 +92,13 @@ const ExpenseMainApp = () => {
     applySearchFilter(transactions)
   },[transactions]);
 
+
   useEffect(()=>{
-    applySearchFilter(filteredTransaction)
+    applySearchFilter(transactions)
   },[searchInput]);
 
 
 
-
-  // const handleCategoryChange = (category, index) => {
-  //   setActiveButton(index);
-  //   const expensesData = [...transactions];
-  //   const sortedExpenses = expensesData.filter((item) => {
-  //     return item.category === category;
-  //   });
-  //   setFilteredTransactions(sortedExpenses);
-  // };
 
   return (
     <>
@@ -199,9 +191,6 @@ const ExpenseMainApp = () => {
         </div>
         <AddBudget handleBudgetPopupClick={handleBudgetPopupClick} openBudgetPopup={openBudgetPopup} closeBudgetPopup={closeBudgetPopup}/>
         <AddExpence handleExpensePopupClick={handleExpensePopupClick} openExpensePopup={openExpensePopup} closeAddExpensePopup={closeAddExpensePopup}  />
-        
-        <PieChart filteredTransaction={filteredTransaction} setFilteredTransaction={setFilteredTransaction} />
-        <LineChart  />
         <ExpenseTable filteredTransaction={filteredTransaction} setFilteredTransaction={setFilteredTransaction} />
         <Footer/>
       </div>

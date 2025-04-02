@@ -6,7 +6,7 @@ const BudgetCards = ({ title, budget, image }) => {
       <div className="budget-component-details flex flex-col">
         <h2 className="text-xl font-normal text-gray-400">{title}</h2>
         <p className="text-5xl font-bold text-gray-900">
-          Rs{Number(budget).toLocaleString()}
+         ₹ {Number(budget).toLocaleString()}
         </p>
       </div>
       <div>

@@ -57,15 +57,17 @@ const EditExpense = ({openEditExpensePopup , closeEditPopup}) => {
   };
 
   const hanldeEditTransaction = (expense) =>{
+
     let editedTransaction = transactions.map((transaction)=>{
       if(transaction.id === selectedTransaction.id){
-        return expense;
-      }else{
-        return transaction
+        return {...transaction ,...expense}
       }
-      setTransactions(editedTransaction);
-      localStorage.setItem("transactions" , JSON.stringify(editedTransaction))
+      return transaction;
     })
+    setTransactions(editedTransaction);
+    console.log({editedTransaction})
+    localStorage.setItem('transactions' , JSON.stringify(editedTransaction))
+    
 
   }
 
@@ -78,15 +80,18 @@ const EditExpense = ({openEditExpensePopup , closeEditPopup}) => {
         category:editCategory, 
         date: editDate,
         amount:Number(editAmount) ,
+        description:editExpenseTitle ,
 
       })
-      set
-      //clear Inputs
+
       setEditedExpenseTitle("")
       setEditedCategory("")
       setEditedDate("")
       setEditedAmount("")
+
       closeEditPopup();
+      
+      
 
     }
   }
@@ -103,7 +108,7 @@ const EditExpense = ({openEditExpensePopup , closeEditPopup}) => {
         onClick={closeEditPopup}
         style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
       ></div>
-      <div className="add-expense-container fixed top-1/5 left-2/5 bg-white flex flex-col gap-2 rounded-xl">
+      <div className="add-expense-container fixed top-1/5 left-2/5 bg-white flex flex-col gap-2 rounded-xl z-1">
         <span
           className="close-button absolute right-0 top-0 w-10 h-10 text-center cursor-pointer text-2xl rounded-lg"
           onClick={closeEditPopup}
@@ -116,7 +121,7 @@ const EditExpense = ({openEditExpensePopup , closeEditPopup}) => {
           </h2>
         </div>
         <form
-          onSubmit={hanldeEditTransaction}
+          onSubmit={handleSubmit}
           className="flex flex-col gap-4  px-10"
         >
           <div className="add-expense  ">

@@ -3,7 +3,6 @@ import { AppContext } from "../context/AppProvider";
 import { v4 as uuidv4, validate } from "uuid";
 
 const AddExpence = ({
-  handleExpensePopupClick,
   openExpensePopup,
   closeAddExpensePopup,
 }) => {
@@ -13,7 +12,7 @@ const AddExpence = ({
   const [newExpenseAmount, setNewExpenseAmount] = useState("");
   const [initialDate, setInitialDate] = useState("");
   const [errors, setErrors] = useState({});
-  const { budget, transactions, setTransactions ,activeButton , 
+  const { transactions, setTransactions  , 
     setActiveButton } = useContext(AppContext);
 
   const handleExpenseDataChange = (newExpense) => {
@@ -83,7 +82,7 @@ const AddExpence = ({
             onClick={closeAddExpensePopup}
             style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
           ></div>
-          <div className="add-expense-container fixed top-1/5 left-2/5 bg-white flex flex-col gap-2 rounded-xl">
+          <div className="add-expense-container fixed top-1/5 left-2/5 bg-white flex flex-col gap-2 rounded-xl z-1">
             <span
               className="close-button absolute right-0 top-0 w-10 h-10 text-center cursor-pointer text-2xl rounded-lg"
               onClick={closeAddExpensePopup}

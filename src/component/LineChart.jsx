@@ -27,7 +27,7 @@ const LineChart = () => {
 
   const option = {
     title: {
-      text: "Expenses Graph",
+      text: "Expenses by Date",
       left: "center",
     },
     xAxis: {

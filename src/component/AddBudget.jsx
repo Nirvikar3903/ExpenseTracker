@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppProvider";
 
 const AddBudget = ({openBudgetPopup, handleBudgetPopupClick ,closeBudgetPopup}) => {
-  const { budget  , setBudget} = useContext(AppContext);
+  const {setBudget} = useContext(AppContext);
 
   const [inputBudget, setInputBudget] = useState();
   const [errors, setErrors] = useState({});
@@ -49,7 +49,7 @@ const AddBudget = ({openBudgetPopup, handleBudgetPopupClick ,closeBudgetPopup}) 
         onClick={closeBudgetPopup}
         style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
       ></div>
-      <div className="add-budget-container fixed top-1/4 left-2/5 bg-white flex flex-col gap-2 rounded-xl">
+      <div className="add-budget-container fixed top-1/4 left-2/5 bg-white flex flex-col gap-2 rounded-xl z-1">
         <span
           className="close-button absolute right-0 top-0 w-10 h-10 text-center cursor-pointer text-2xl rounded-tl-lg"
           onClick={closeBudgetPopup}
